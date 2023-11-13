@@ -2,11 +2,9 @@ import os
 
 from telebot import TeleBot
 
-from credentials import BOT_TOKEN
+from credentials import BOT_TOKEN, OBSIDIAN_PATH
 
 bot = TeleBot(BOT_TOKEN)
-
-path = "/Users/vladimirsumarokov/Yandex.Disk.localized/obsidian_wiki/"
 
 
 @bot.message_handler(commands=["start"])
@@ -21,7 +19,7 @@ def create_note(message):
         return
     title = lines[0]
     filename = title.replace(" ", "_").replace(".", "_") + ".md"
-    fullpath = os.path.join(path, filename)
+    fullpath = os.path.join(OBSIDIAN_PATH, filename)
     text = "\n".join(lines[1:])
     with open(fullpath, "w") as f:
         f.write(text)
