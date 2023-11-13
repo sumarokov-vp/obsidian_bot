@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "obsidian-bot"
+version = "0.1.0"
+description = ""
+authors = ["sumarokov-vp <sumarokov.vp@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytelegrambotapi = "^4.14.0"
+mypy = "^1.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+executionEnvironments = [
+{ root = ".", venv =  ".venv", extraPaths = ["./stubs", "./.venv/bin", "./.venv/lib/python3.12/site-packages/"] }
+]
+
+[tool.mypy]
+mypy_path = "$MYPY_CONFIG_FILE_DIR/stubs"
