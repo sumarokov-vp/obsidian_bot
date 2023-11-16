@@ -9,7 +9,13 @@ docker-compose run --rm ya.disk yandex-disk setup
 ```
 
 Disable auto sync for folders
+
 ```config
+# ~/.config/yandex-disk/config.cfg
+#data directory
+dir="~/Yandex.Disk"
+
+#exclude files
 exclude-dirs="exclude/dir1,exclude/dir2,path/to/another/exclude/dir"
 ```
 
