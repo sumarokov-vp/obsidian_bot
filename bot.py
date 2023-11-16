@@ -69,6 +69,7 @@ def open_file(call):
         .replace("*", "\\*")
         .replace("`", "\\`")
         .replace(".", "\\.")
+        .replace("#", "\\#")
     )
 
     bot.send_message(call.message.chat.id, message_text, parse_mode="MarkdownV2")
