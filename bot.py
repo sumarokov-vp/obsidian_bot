@@ -71,7 +71,7 @@ def grep_files(query) -> List[str]:
     # obsidian_directory = os.path.join("/root/Yandex.Disk/obsidian_wiki/*.md", "*.md")
     # Get a list of file paths that match the pattern
     file_paths = glob.glob(obsidian_directory)
-    found_files = [""]
+    found_files = []
 
     # Check if there are any matching files
     if file_paths:
@@ -84,7 +84,11 @@ def grep_files(query) -> List[str]:
             )
             found_files = output.strip().split("\n")
         except subprocess.CalledProcessError as e:
-            logging.error(e, exc_info=True)
+            if e.returncode == 1:
+                # No matches found
+                logging.info(f"No matches found for '{query}'.")
+            else:
+                logging.error(e, exc_info=True)
 
     return found_files
 
