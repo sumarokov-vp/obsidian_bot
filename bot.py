@@ -125,9 +125,17 @@ def create_note(message):
     filename = title.replace(" ", "_").replace(".", "_") + ".md"
     fullpath = os.path.join(OBSIDIAN_PATH, filename)
     text = "\n".join(lines[1:])
-    with open(fullpath, "w") as f:
-        f.write(text)
-    bot.reply_to(message, f"Created note {title}!")
+
+    # if file exists, append to it
+    if os.path.exists(fullpath):
+        with open(fullpath, "a") as f:
+            f.write("\n")
+            f.write(text)
+            bot.reply_to(message, f"Appended to note {title}!")
+    else:
+        with open(fullpath, "w") as f:
+            f.write(text)
+            bot.reply_to(message, f"Created note {title}!")
 
 
 if __name__ == "__main__":
