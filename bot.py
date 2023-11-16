@@ -63,7 +63,14 @@ def open_file(call):
     fullpath = os.path.join(OBSIDIAN_PATH, filename)
     with open(fullpath, "r") as f:
         text = f.read()
-    message_text = text.replace("-", "\\-")
+    message_text = (
+        text.replace("-", "\\-")
+        .replace("_", "\\_")
+        .replace("*", "\\*")
+        .replace("`", "\\`")
+        .replace(".", "\\.")
+    )
+
     bot.send_message(call.message.chat.id, message_text, parse_mode="MarkdownV2")
 
 
