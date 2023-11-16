@@ -22,3 +22,14 @@ executionEnvironments = [
 
 [tool.mypy]
 mypy_path = "$MYPY_CONFIG_FILE_DIR/stubs"
+
+[tool.isort]
+import_heading_stdlib= "Standard Library"
+import_heading_thirdparty= "Third Party Stuff"
+import_heading_firstparty= "My Stuff"
+
+multi_line_output= 5
+line_length= 60
+combine_as_imports= "True"
+include_trailing_comma= "True"
+force_grid_wrap= 2
