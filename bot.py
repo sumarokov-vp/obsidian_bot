@@ -7,6 +7,7 @@ from typing import List
 
 # Third Party Stuff
 from telebot import TeleBot
+from telebot.apihelper import ApiTelegramException
 from telebot.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
@@ -88,7 +89,16 @@ def open_file(call):
         .replace("$", "\\$")
     )
 
-    bot.send_message(call.message.chat.id, message_text, parse_mode="MarkdownV2")
+    try:
+        bot.send_message(call.message.chat.id, message_text, parse_mode="MarkdownV2")
+    except ApiTelegramException as e:
+        logging.error(e, exc_info=True)
+        logging.info(f"Error sending message: \n{message_text}")
+        bot.send_message(
+            call.message.chat.id,
+            "The note is too long to be sent as a message. "
+            "Please open the file in Obsidian.",
+        )
 
 
 def grep_files(query) -> List[str]:
