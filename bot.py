@@ -94,11 +94,13 @@ def open_file(call):
     except ApiTelegramException as e:
         logging.error(e, exc_info=True)
         logging.info(f"Error sending message: \n{message_text}")
-        bot.send_message(
-            call.message.chat.id,
-            "The note is too long to be sent as a message. "
-            "Please open the file in Obsidian.",
-        )
+        # try to send without markdown
+        try:
+            bot.send_message(call.message.chat.id, text)
+        except ApiTelegramException as e:
+            logging.error(e, exc_info=True)
+            logging.info(f"Error sending message: \n{text}")
+            bot.send_message(call.message.chat.id, "Error sending note to Telegram.")
 
 
 def grep_files(query) -> List[str]:
