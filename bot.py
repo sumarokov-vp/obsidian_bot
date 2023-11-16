@@ -63,7 +63,8 @@ def open_file(call):
     fullpath = os.path.join(OBSIDIAN_PATH, filename)
     with open(fullpath, "r") as f:
         text = f.read()
-    bot.send_message(call.message.chat.id, text, parse_mode="MarkdownV2")
+    message_text = text.replace("-", "\\-")
+    bot.send_message(call.message.chat.id, message_text, parse_mode="MarkdownV2")
 
 
 def grep_files(query) -> List[str]:
