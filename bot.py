@@ -44,9 +44,10 @@ def request_search_query(message):
         return
     keyboard = InlineKeyboardMarkup()
     for file in found_files:
+        filename = os.path.basename(file)
         button = InlineKeyboardButton(
-            text=os.path.basename(file),
-            callback_data=f"open_file${file}",
+            text=filename,
+            callback_data=f"open_file${filename}",
         )
         keyboard.add(button)
     bot.reply_to(
