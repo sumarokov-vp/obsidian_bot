@@ -60,10 +60,11 @@ def request_search_query(message):
 @bot.callback_query_handler(func=lambda call: call.data.startswith("open_file$"))
 def open_file(call):
     filename = call.data.split("$")[1]
+    message_text = f"*{filename}*\n\n"
     fullpath = os.path.join(OBSIDIAN_PATH, filename)
     with open(fullpath, "r") as f:
         text = f.read()
-    message_text = (
+    message_text += (
         text.replace("-", "\\-")
         .replace("_", "\\_")
         .replace("*", "\\*")
