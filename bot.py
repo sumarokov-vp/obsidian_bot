@@ -79,10 +79,9 @@ def grep_files(query) -> List[str]:
         )
         # Split the output into a list of file paths
         found_files = result.stdout.strip().split("\n")
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as error:
         # Handle errors, e.g., if grep returns a non-zero exit code
-        print(f"An error occurred while searching for '{query}'.")
-
+        logging.error(error, exc_info=True)
     return found_files
 
 
@@ -101,4 +100,5 @@ def create_note(message):
 
 
 if __name__ == "__main__":
+    logging.info("Starting bot...")
     bot.infinity_polling()
