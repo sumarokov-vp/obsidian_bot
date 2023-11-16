@@ -61,14 +61,14 @@ def request_search_query(message):
 def open_file(call):
     filename = call.data.split("$")[1]
     filename_without_extension = filename.split(".")[0]
-    text = f"*{filename_without_extension}*\n\n"
+    text = f"**{filename_without_extension}**\n\n"
     fullpath = os.path.join(OBSIDIAN_PATH, filename)
     with open(fullpath, "r") as f:
         text += f.read()
     message_text = (
         text.replace("-", "\\-")
         .replace("_", "\\_")
-        .replace("*", "\\*")
+        # .replace("*", "\\*")
         # .replace("`", "\\`")
         .replace(".", "\\.")
         .replace("#", "\\#")
