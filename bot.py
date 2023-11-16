@@ -67,7 +67,7 @@ def open_file(call):
         text.replace("-", "\\-")
         .replace("_", "\\_")
         .replace("*", "\\*")
-        .replace("`", "\\`")
+        # .replace("`", "\\`")
         .replace(".", "\\.")
         .replace("#", "\\#")
         .replace("(", "\\(")
