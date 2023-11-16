@@ -1,4 +1,5 @@
 # Standard Library
+import glob
 import logging
 import os
 import subprocess
@@ -64,24 +65,25 @@ def open_file(call):
 
 
 def grep_files(query) -> List[str]:
-    found_files = []
-
-    # Use os.path.join to create the complete path to the Obsidian directory
     obsidian_directory = os.path.join(OBSIDIAN_PATH, "*.md")
+    # obsidian_directory = os.path.join("/root/Yandex.Disk/obsidian_wiki/*.md", "*.md")
+    # Get a list of file paths that match the pattern
+    file_paths = glob.glob(obsidian_directory)
+    found_files = [""]
 
-    # Use subprocess to run the grep command and capture the output
-    try:
-        result = subprocess.run(
-            ["grep", "-rl", query, obsidian_directory],
-            capture_output=True,
-            text=True,
-            check=True,
-        )
-        # Split the output into a list of file paths
-        found_files = result.stdout.strip().split("\n")
-    except subprocess.CalledProcessError as error:
-        # Handle errors, e.g., if grep returns a non-zero exit code
-        logging.error(error, exc_info=True)
+    # Check if there are any matching files
+    if file_paths:
+        try:
+            # Run the grep command with the list of file paths
+            output = subprocess.check_output(
+                ["grep", "-rl", query] + file_paths,
+                stderr=subprocess.STDOUT,
+                text=True,
+            )
+            found_files = output.strip().split("\n")
+        except subprocess.CalledProcessError as e:
+            logging.error(e, exc_info=True)
+
     return found_files
 
 
