@@ -59,8 +59,9 @@ def request_search_query(message):
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("open_file$"))
 def open_file(call):
-    file = call.data.split("$")[1]
-    with open(file, "r") as f:
+    filename = call.data.split("$")[1]
+    fullpath = os.path.join(OBSIDIAN_PATH, filename)
+    with open(fullpath, "r") as f:
         text = f.read()
     bot.send_message(call.message.chat.id, text)
 
