@@ -1,14 +1,19 @@
 # obsidian_bot
 
-https://hub.docker.com/r/deanar/yandex.disk/
+https://yandex.ru/support/disk-desktop-linux/
+### Yandex disk for obsidian sync
 
-### Yandex disk: Obtain OAuth token
-(leave default path to Yandex.Disk folder or change it in volumes section too)
 ```bash
-docker-compose run --rm ya.disk yandex-disk setup
-```
+wget -O YANDEX-DISK-KEY.GPG http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
+apt-key add YANDEX-DISK-KEY.GPG
+echo "deb http://repo.yandex.ru/yandex-disk/deb/ stable main" >> /etc/apt/sources.list.d/yandex-disk.list
+apt-get update
+apt-get install yandex-disk
 
-Disable auto sync for folders
+# initial setup
+yandex-disk setup
+vim ~/.config/yandex-disk/config.cfg
+```
 
 ```config
 # ~/.config/yandex-disk/config.cfg
@@ -21,7 +26,7 @@ exclude-dirs="exclude/dir1,exclude/dir2,path/to/another/exclude/dir"
 
 Then you can run service
 ```bash
-docker-compose up -d
+yandex-disk start
 ```
 
 ### Using bot
